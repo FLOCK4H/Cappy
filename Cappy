@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+from cappycore.captive import Cappy, Config, ip_config, handle_services, handle_networking, shutdown_network, safecall, WebServer
+from cappycore.colors import wprint, iprint
+import sys, time
+
+if __name__ == "__main__":
+    cappy = Cappy()
+    interface = cappy.interface
+    conf = Config(inf=interface)
+
+    try:
+        ip_config(interface)
+        handle_services()
+        handle_networking(interface)
+
+        iprint("Starting hostapd...")
+        safecall(f"sudo systemctl start hostapd")
+        WebServer()
+    except KeyboardInterrupt:
+        wprint("\nExiting..\n")
+        shutdown_network(conf)
+        sys.exit(0)
+
+    while True:
+        try:
+            time.sleep(1)
+        except KeyboardInterrupt:
+            shutdown_network(conf)
+            sys.exit(1)
