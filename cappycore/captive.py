@@ -279,8 +279,17 @@ class Cappy:
     def __init__(self):
         cprint("Checking dependencies..")
         check_dependencies(["dnsmasq", "lighttpd", "hostapd"])
+        self.check_dirs()
         self.run_cappy()
 
+    def check_dirs(self):
+        if not os.path.exists("/usr/local/share/Cappy/templates"):
+            cprint("Creating templates dir...")
+            os.makedirs("/usr/local/share/Cappy/templates")
+            templates = ["Valentines", "mrhacker", "google", "mcd"]
+            for template in templates:
+                shutil.copytree(f"templates/{template}", f"/usr/local/share/Cappy/templates/{template}")
+                
     def run_cappy(self):
         try:
             interfaces = get_interface()
