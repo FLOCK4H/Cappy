@@ -83,3 +83,22 @@ Example:
 ```
 
 **Device wanting to join the network will be redirected to the `index.html` of the template, where after entering credentials and submitting, will be redirected to the `action.html`, that harvests those credentials and logs to the console.**
+
+# Troubleshoot
+
+There are numerous reasons for why the Cappy may not work, as it all depends on the network adapter, operating system, and machine capabilities itself. Currently, it's less likely that **Cappy will ever work on Android devices**. Here are the general steps on how to debug your issue:
+
+1. Ensure dependencies are installed manually
+
+```
+  $ sudo apt-get install hostapd dnsmasq lighttpd
+```
+
+2. Check paths for conflicts:
+
+```
+  $ ls /etc/hostapd
+  $ find /etc/dnsmasq.conf
+  $ find /usr/local/share/Cappy
+```
+
