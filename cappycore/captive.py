@@ -51,7 +51,8 @@ def mod_path(path, mod="copy"):
         os.remove(path)
         shutil.move(f"{path}.copy", path)
 
-    shutil.copy(path, f"{path}.copy")    
+    if os.path.exists(path):
+        shutil.copy(path, f"{path}.copy") 
 
 def safecall(cmd):
     result = os.system(cmd)
