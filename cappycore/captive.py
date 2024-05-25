@@ -54,9 +54,12 @@ def mod_path(path, mod="copy"):
     if os.path.exists(path):
         shutil.copy(path, f"{path}.copy") 
 
-def safecall(cmd):
+def safecall(cmd, post_scriptum=""):
     result = os.system(cmd)
     if result != 0:
+        if post_scriptum == "dnsmasq_issue":
+            print(f"{cc.BLUE}Running 'sudo apt-get install dnsmasq' to fix dnsmasq!")
+            os.system(f"sudo apt-get install dnsmasq")
         print(f"{cc.YELLOW}Catched command failure, but {cc.GREEN}continuing{cc.YELLOW}: {cmd}{cc.RESET}")
     return result
 
@@ -79,7 +82,7 @@ def handle_services():
     safecall("sudo systemctl unmask hostapd")
     cprint("Hostapd was unmasked...")
 
-    safecall(f"sudo systemctl stop dnsmasq")
+    safecall(f"sudo systemctl stop dnsmasq", "dnsmasq_issue")
     cprint("Stopped dnsmasq")
 
     safecall(f"sudo systemctl stop hostapd")
@@ -87,7 +90,7 @@ def handle_services():
 
     safecall(f"sudo systemctl daemon-reload")
     iprint("Starting dnsmasq...")
-    safecall(f"sudo systemctl start dnsmasq")
+    safecall(f"sudo systemctl start dnsmasq", "dnsmasq_issue")
     time.sleep(2)
 
 def handle_networking(wlans):
