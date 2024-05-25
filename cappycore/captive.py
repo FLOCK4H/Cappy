@@ -35,6 +35,11 @@ def check_dependencies(dependencies):
         result = subprocess.run(["which", dep], capture_output=True, text=True)
         if result.returncode != 0:
             wprint(f"{dep} is not installed. Please install {dep} and try again.")
+            install = cinput(f"Install {dep} now? (Y/n)")
+            if install.lower() == "y":
+                os.system(f"sudo apt-get install {dep}")
+                cprint(f"{dep} successfully installed!")
+                time.sleep(1.5)
         else:
             iprint(f"{dep} is installed.")
         time.sleep(0.2)
