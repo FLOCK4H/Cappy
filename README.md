@@ -11,28 +11,32 @@
   
 **Evil Twin** is a phishing technique categorized under network attacks, it involves the creation of a **rogue wireless access point (AP)** that masquerades as a legitimate network, such as a public Wi-Fi hotspot or a familiar network with a captive portal, to deceive users into connecting and unknowingly divulging their sensitive login credentials and other personal information transmitted over the compromised connection. 
 </div>
-  
+
+<br />
+
 > [!TIP]
-> <strong>Cappy, a framework that automates the attack, must be used only in clear, educational purposes. Any action outside of that context is highly unrecommended, and may result in legal consequences</strong>
+> <strong>Cappy, a framework that automates the attack, must be used only in clear, educational purposes.<br /> Any action outside of that context is highly unrecommended, and may result in legal consequences</strong>
 
 # Introduction
 
 **Python** tool, that automates the process of setting up captive portal on Linux machines, with some tweaks.
 
 > [!NOTE]
-> This software was tested on: <strong>Kali Linux, KaliPi, ParrotOS</strong>
+> This software was tested on: <strong>Kali Linux, KaliPi, ParrotOS</strong><br />
 > In case of any trouble, create an issue and describe the error
 
-**Cappy** works like this:
+<br />
+
+**Cappy** operation scheme:
 
 ```
   Check Dependencies ---> Choose network interface
-          |                         |                                                                         
-          | missing?                └ Change mac address                      Run captive portal <--- Select Template
-          |                                   |                                       |                       |
-  Install Dependencies                        └ Menu Screen                           └ Capture credentials   |
-                                                     | start?                                                 |
-                                                     └ Prepare adapter ---> Configure IP Adresses ---> Restart services
+          |                ^         |                                                                         
+          | missing?       |         └ Change mac address                      Run captive portal <--- Select Template
+          |                |                   |                                       |                       |
+  Install Dependencies -   |                   └ Menu Screen                           └ Capture credentials   |
+                       |_ _|                          | start?                                                 |
+                                                      └ Prepare adapter ---> Configure IP Adresses ---> Restart services
 
 ```
 
@@ -40,7 +44,9 @@
 
 **In most cases, Cappy can handle the setup by itself, so give it a try**
 
-1-A. Installing Cappy with pip
+<br />
+
+**1-A.** Installing Cappy with pip
 
   <sub>This will make 'Cappy' available from any path in the terminal</sub>
   
@@ -50,7 +56,7 @@
     $ sudo pip install .
   ```
 
-1-B. Running Cappy with Python
+**1-B.** Running Cappy with Python
    
    <sub>We will need to install dependencies manually</sub>
 
@@ -62,7 +68,12 @@
 ```
 
 # Usage
+
 ![image](https://github.com/FLOCK4H/Cappy/assets/161654571/ce6ee823-5408-4b14-8f3c-ce33bb53737b)
+
+```
+  $ sudo Cappy
+```
 
 **Templates** are being saved to the <i> **/usr/local/share/Cappy/templates** </i>folder.
 
@@ -84,9 +95,12 @@ Example:
 
 **Device wanting to join the network will be redirected to the `index.html` of the template, where after entering credentials and submitting, will be redirected to the `action.html`, that harvests those credentials and logs to the console.**
 
-# Troubleshoot
+## Troubleshooting
 
-There are numerous reasons for why the Cappy may not work, as it all depends on the network adapter, operating system, and machine capabilities itself. Currently, it's less likely that **Cappy will ever work on Android devices**. Here are the general steps on how to debug your issue:
+There are numerous reasons for why the Cappy may not work, as it all depends on the network adapter, operating system, and machine capabilities itself.
+Carefully read the console when launching the framework, the errors can provide more information on what's going on.
+
+Here are the general steps on how to debug your issue:
 
 1. Ensure dependencies are installed manually
 
@@ -102,3 +116,25 @@ There are numerous reasons for why the Cappy may not work, as it all depends on 
   $ find /usr/local/share/Cappy
 ```
 
+3. Check logs of the services:
+
+```
+  $ sudo systemctl status hostapd
+  $ sudo systemctl status dnsmasq
+
+  # If dnsmasq status replied with - 10.0.0.1-150 range is busy, you need to change all 10.0.0.15 and 10.0.0.20-150 entries in the code to other IP and range.
+```
+
+> [!TIP]
+> In case when troubleshooting steps did not work; please create an issue
+
+## TODO
+
+- [ ] Add run arguments
+- [ ] Stable release
+- [ ] PyPi release
+
+## LICENSE
+
+$${\color{orange}MIT}$$ 
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
