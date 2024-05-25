@@ -72,11 +72,11 @@ def delete_iptables_rule(table, rule):
 def ip_config(wlans):
     for wlan in wlans:
         iprint("Configuring IP adresses...")
-        safecall(f"sudo ifconfig {wlan} 192.168.1.1 netmask 255.255.255.0 up")
+        safecall(f"sudo ifconfig {wlan} 10.0.0.15 netmask 255.255.255.0 up")
         safecall(f"sudo sh -c \"echo 1 > /proc/sys/net/ipv4/ip_forward\"")
         safecall(f"sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE")
-        safecall(f"sudo iptables -t nat -A PREROUTING -i {wlan} -p tcp --dport 80 -j DNAT --to-destination 192.168.1.1")
-        safecall(f"sudo iptables -A FORWARD -i {wlan} -p tcp --dport 80 -d 192.168.1.1 -j ACCEPT")
+        safecall(f"sudo iptables -t nat -A PREROUTING -i {wlan} -p tcp --dport 80 -j DNAT --to-destination 10.0.0.15")
+        safecall(f"sudo iptables -A FORWARD -i {wlan} -p tcp --dport 80 -d 10.0.0.15 -j ACCEPT")
 
 def handle_services():
     safecall("sudo systemctl unmask hostapd")
@@ -133,7 +133,7 @@ class Config:
         self.write_config(interface=self.wlan, ssid="Cappy!", channel=10)
 
         self.write_to_config("/etc/default/hostapd", f"DAEMON_CONF=/etc/hostapd/hostapd.conf")
-        self.write_to_config("/etc/dnsmasq.conf", f"""interface={self.wlan}\ndhcp-range=192.168.1.50,192.168.1.150,12h""")
+        self.write_to_config("/etc/dnsmasq.conf", f"""interface={self.wlan}\ndhcp-range=10.0.0.20,10.0.0.150,12h""")
         self.write_to_config("/etc/network/interfaces", f"#")
     
     def write_config(self, **kwargs):
@@ -184,8 +184,8 @@ def shutdown_network(conf=None):
     iprint("Changing back the IP settings...")
     safecall(f"sudo sh -c \"echo 0 > /proc/sys/net/ipv4/ip_forward\"")
     delete_iptables_rule(f"nat", f"POSTROUTING -o eth0 -j MASQUERADE")
-    delete_iptables_rule(f"nat", f"PREROUTING -i {conf.wlan} -p tcp --dport 80 -j DNAT --to-destination 192.168.1.1")
-    delete_iptables_rule(f"filter", f"FORWARD -i {conf.wlan} -p tcp --dport 80 -d 192.168.1.1 -j ACCEPT")
+    delete_iptables_rule(f"nat", f"PREROUTING -i {conf.wlan} -p tcp --dport 80 -j DNAT --to-destination 10.0.0.15")
+    delete_iptables_rule(f"filter", f"FORWARD -i {conf.wlan} -p tcp --dport 80 -d 10.0.0.15 -j ACCEPT")
 
     mod_path(path="/etc/hostapd/hostapd.conf", mod="ren")
     mod_path(path="/etc/default/hostapd", mod="ren")
@@ -274,8 +274,8 @@ class WebServer:
         if choice_template:
             os.chdir(os.path.join(templates_dir, choice_template))
             handler = CaptivePortalHandler
-            httpd = HTTPServer(("192.168.1.1", 80), handler)
-            iprint("Serving captive portal on {}http://192.168.1.1:80 {}".format(cc.GREEN, cc.RESET))
+            httpd = HTTPServer(("10.0.0.15", 80), handler)
+            iprint("Serving captive portal on {}http://10.0.0.15:80 {}".format(cc.GREEN, cc.RESET))
             print(cc.LIGHT_BLUE, cc.BRIGHT, "Evil Twin has started!", cc.BLUE)
             httpd.serve_forever()
         else:
