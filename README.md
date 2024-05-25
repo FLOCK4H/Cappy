@@ -37,7 +37,7 @@
   Install Dependencies -   |                   └ Menu Screen                           └ Capture credentials   |
                        |_ _|                          | start?                                                 |
                                                       └ Prepare adapter ---> Configure IP Adresses ---> Restart services
-
+                                                      └ Write configs
 ```
 
 # Setup
