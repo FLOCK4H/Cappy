@@ -103,6 +103,10 @@ Help make this number bigger, and message me with your template:
 
 `flock4h@gmail.com \ Topic: Cappy Templates [NEW_TEMPLATE_NAME]`
 
+<div align="center">
+  <img src="https://flockahh.b-cdn.net/IMG_2835.png" alt="Result" width="400"/>
+</div>
+
 ## Troubleshooting
 
 There are numerous reasons for why the Cappy may not work, as it all depends on the network adapter, operating system, and machine capabilities itself.
