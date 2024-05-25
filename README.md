@@ -5,7 +5,6 @@
   
 ##   $${\color{orange}Cappy}$$ 
   
-  $${\color{red}The\ \color{magenta}Evil\color{red}\ Twin}$$
 </div>
   
 <div>
