@@ -1,5 +1,3 @@
-# Readme is under construction 🚧
-
 <div align="center">
   <img src="https://flockahh.b-cdn.net/B5860EAD-2DC4-4373-A00C-B0C219CB6D9A.png" alt="Cappy Logo" />
   
@@ -94,6 +92,16 @@ Example:
 ```
 
 **Device wanting to join the network will be redirected to the `index.html` of the template, where after entering credentials and submitting, will be redirected to the `action.html`, that harvests those credentials and logs to the console.**
+
+**There are 4 default templates**:
+- `google`
+- `mrhacker`
+- `Valentines`
+- `mcd`
+
+Help make this number bigger, and message me with your template:
+
+`flock4h@gmail.com \ Topic: Cappy Templates [NEW_TEMPLATE_NAME]`
 
 ## Troubleshooting
 
