@@ -40,12 +40,10 @@
 
 # Setup
 
-**In most cases, Cappy can handle the setup by itself, so give it a try**
-
-<br />
-
 **1-A.** Installing Cappy with pip
 
+  <sub>**In most cases, Cappy can handle the setup by itself, so give it a try**</sub>
+  
   <sub>This will make 'Cappy' available from any path in the terminal</sub>
   
   ```
