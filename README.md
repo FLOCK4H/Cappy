@@ -1,8 +1,11 @@
 <div align="center">
   
-##   $${\color{orange}Cappy}$$ 
+## Cappy
   
 </div>
+
+> [!NOTE]
+> **Evil Twin** method was added to [Freeway](https://github.com/FLOCK4H/Freeway), and a more recent version of this implementation will forever live there. Consider downloading Freeway.
   
 <div>
   
